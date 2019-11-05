@@ -8,12 +8,11 @@ from ssl import create_default_context
 STMP = "smtp.gmail.com"
 PORT = 465  # For SSL
 PASSWORD = getpass("Type your password and press enter: ")
-SENDER_EMAIL = "McGaleyKrisKindle@gmail.com"
 CONFIG_FILE = "config.json"
 random.seed()
 # TODO make the year dynamic
 # also write tests
-# upload to github
+# and a readme
 # make a generic config file to upload
 # probably a bunch of other stuff
 MAIL_BODY = """
@@ -120,18 +119,18 @@ def generate_assignments(config):
   return assignments
 
 
-def send_email(recipients, mail_body):
+def send_email(recipients, mail_body, sender_email):
   # Create a secure SSL context
   context = create_default_context()
 
   with SMTP_SSL(STMP, PORT, context=context) as server:
     try:
-      server.login(SENDER_EMAIL, PASSWORD)
+      server.login(sender_email, PASSWORD)
       # TODO: Send email here
     except SMTPAuthenticationError:
       print("Password wrong, try again")
       return
-    server.sendmail(SENDER_EMAIL, recipients, mail_body)
+    server.sendmail(sender_email, recipients, mail_body)
     print(f"if we failed we did so after sending a mail to {recipients}")
 
 
@@ -149,7 +148,10 @@ def main():
     mail_body = MAIL_BODY.format(
       recipients=oldie, assignment=assignment)
     # print(f"would send {mail_body}")
-    send_email(config['family'][oldie]['email addresses'], mail_body)
+    send_email(
+      config['family'][oldie]['email addresses'],
+      mail_body, config["Sender"]
+    )
 
   # print(f"config is {config}")
   # send_email(["saoili@gmail.com", "saoili@google.com"], "test email")
