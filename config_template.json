@@ -1,0 +1,18 @@
+{
+  "Sender": "you@example.com",
+  "pressies per": 4,
+  "family": {
+    "Sibling 1 and spouse": {
+      "email addresses":["them1@example.com", "them2@example.com"],
+      "kids": ["Kid 1", "Kid 2"]
+    },
+    "Sibling 2 and spouse": {
+      "email addresses":["them3@example.com", "them4@example.com"],
+      "kids": ["Simon"]
+    },
+    "Parent": {
+      "email addresses":["them@example.com"],
+      "kids": []
+    }
+  }
+}
